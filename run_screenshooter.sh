@@ -27,7 +27,7 @@ set -e
 destination="$1"
 
 # The locale identifiers for the languages you want to shoot
-languages="en fr ja"
+languages="en es ja sv it"
 
 function main {
   _check_destination
@@ -73,7 +73,7 @@ function main {
 # Global variables to keep track of where everything goes
 tmp_dir="/tmp"
 build_dir="$tmp_dir/screen_shooter"
-bundle_dir="$build_dir/app.app"
+bundle_dir="$build_dir/WordPress.app"
 trace_results_dir="$build_dir/traces"
 
 function _check_destination {
@@ -95,6 +95,11 @@ function _shoot_screens_for_all_languages {
 
   for language in $languages; do
     _clean_trace_results_dir
+    osascript -e 'tell application "iPhone Simulator" to quit'
+    # sudo date 1337
+    app_dir=`dirname ~/Library/Application\ Support/iPhone\ Simulator/7.0/Applications/*/WordPress.app`
+    echo Cleaning app dir $app_dir
+    rm -rf "$app_dir"
     bin/choose_sim_language $language
     _run_automation "automation/shoot_the_screens.js"
     _copy_screenshots
@@ -110,7 +115,8 @@ function _xcode {
 
   xcodebuild -sdk iphonesimulator \
     CONFIGURATION_BUILD_DIR=$build_dir \
-    PRODUCT_NAME=app \
+    -workspace ~/tmp/wordpress-ios/WordPress.xcworkspace \
+    -scheme WordPress \
     $*
 }
 

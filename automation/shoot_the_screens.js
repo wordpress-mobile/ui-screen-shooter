@@ -26,11 +26,87 @@
 // Now, we simply drive the application! For more information, check out my
 // resources on UI Automation at http://cocoamanifest.net/features
 var target = UIATarget.localTarget();
-var window = target.frontMostApp().mainWindow();
+var app = target.frontMostApp();
+var win = app.mainWindow();
+var model = target.model();
 
-captureLocalizedScreenshot("screen1");
+var username = "theultimatecatblog";
+var password = "xxxxxxxxxxxxxxxxxx";
 
-window.buttons()[0].tap();
-target.delay(0.5);
+UIALogger.logStart("screenshots");
 
-captureLocalizedScreenshot("screen2");
+captureLocalizedScreenshot("1-nux");
+
+target.frontMostApp().mainWindow().scrollViews()[0].buttons()[3].tap();
+target.frontMostApp().keyboard().typeString(username);
+target.frontMostApp().keyboard().typeString("\n");
+target.frontMostApp().keyboard().typeString(password);
+target.frontMostApp().keyboard().typeString("\n");
+target.frontMostApp().keyboard().typeString("\n");
+
+// Wait for login
+target.delay(6);
+
+// Dismiss post-NUX
+target.tap({x:140.50, y:353.00});
+target.tap({x:140.50, y:353.00});
+target.delay(4);
+target.frontMostApp().mainWindow().tableViews()[1].cells()[7].tap();
+target.delay(2);
+
+captureLocalizedScreenshot("5-editor");
+
+target.frontMostApp().navigationBar().leftButton().tap();
+target.frontMostApp().navigationBar().buttons()[0].tap();
+// Load reader
+target.frontMostApp().mainWindow().tableViews()[0].cells()[0].tap();
+target.delay(4);
+// Dismiss friend finder
+if (model.match(/iPhone/)) {
+    target.frontMostApp().mainWindow().buttons()[1].tap();
+}
+target.frontMostApp().mainWindow().tableViews()[1].cells()[2].scrollToVisible();
+target.delay(3);
+
+captureLocalizedScreenshot("2-reader");
+
+target.frontMostApp().navigationBar().buttons()[0].tap();
+target.frontMostApp().mainWindow().tableViews()[0].groups()["Ultimate Cat Blog"].tapWithOptions({tapOffset:{x:0.32, y:0.48}});
+target.delay(2);
+
+captureLocalizedScreenshot("3-sidebar");
+
+target.frontMostApp().mainWindow().tableViews()[0].cells()[2].tapWithOptions({tapOffset:{x:0.76, y:0.64}});
+target.delay(1);
+// Select photo
+if (model.match(/iPhone/)) {
+    target.frontMostApp().mainWindow().tableViews()[0].cells()[0].tap();
+    target.frontMostApp().mainWindow().collectionViews()[0].cells()[0].tap();    
+} else {
+    target.frontMostApp().mainWindow().popover().tableViews()[0].cells()[0].tap();
+    target.frontMostApp().mainWindow().popover().collectionViews()[0].cells()[0].tap();    
+}
+// Type caption
+target.frontMostApp().mainWindow().textViews()[0].tap();
+target.frontMostApp().keyboard().typeString("Really cute cat toy!");
+
+captureLocalizedScreenshot("4-quickphoto");
+
+target.frontMostApp().navigationBar().leftButton().tap();
+
+if (model.match(/iPhone/)) {
+    target.frontMostApp().navigationBar().buttons()[0].tap();
+    target.delay(1);
+    target.frontMostApp().mainWindow().tableViews()[0].cells()[0].tap();
+    target.frontMostApp().navigationBar().buttons()[0].tap();
+    target.frontMostApp().mainWindow().tableViews()[0].cells()[2].tap();
+    // Settings View Controller
+    target.frontMostApp().mainWindow().tableViews()[0].cells()[3].tap();
+    target.frontMostApp().actionSheet().buttons()[0].tap();
+    target.delay(1);
+}
+
+UIALogger.logPass("screenshots");
+
+//*/
+
