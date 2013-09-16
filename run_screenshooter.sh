@@ -44,12 +44,13 @@ function main {
   #
   # If your app isn't universal and only on iPhone or iPad, then you can remove
   # the parts that don't matter for you.
+  rm -rf $build_dir
   _xcode clean build TARGETED_DEVICE_FAMILY=1
-
-  bin/choose_sim_device "iPhone (Retina 3.5-inch)"
+  
+  bin/choose_sim_device "iPhone Retina (3.5-inch)"
   _shoot_screens_for_all_languages
-
-  bin/choose_sim_device "iPhone (Retina 4-inch)"
+  
+  bin/choose_sim_device "iPhone Retina (4-inch)"
   _shoot_screens_for_all_languages
 
   # We have to build again with the iPad device family because otherwise
@@ -57,7 +58,7 @@ function main {
   # simulator.
   _xcode build TARGETED_DEVICE_FAMILY=2
 
-  bin/choose_sim_device "iPad (Retina)"
+  bin/choose_sim_device "iPad Retina"
   _shoot_screens_for_all_languages
 
   bin/close_sim
