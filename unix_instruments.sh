@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2012 Jonathan Penn (http://cocoamanifest.net)
+# Copyright (c) 2013 Jonathan Penn (http://cocoamanifest.net)
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -38,24 +38,10 @@
 set -e  # Bomb on any script errors
 
 run_instruments() {
-  # Because instruments buffers it's output if it determines that it is being
-  # piped to another process, we have to use ptys to get around that so that we
-  # can use `tee` to save the output for grepping and print to stdout in real
-  # time at the same time.
-  #
-  # I don't like this because I'm hard coding a tty/pty pair in here. Suggestions
-  # to make this cleaner?
-
+  # Pipe to `tee` using a temporary file so everything is sent to standard out
+  # and we have the output to check for errors.
   output=$(mktemp -t unix-instruments)
-  instruments $@ &> /dev/ttyvf & pid_instruments=$!
-
-  # Cat the instruments output to tee which outputs to stdout and saves to
-  # $output at the same time
-  cat < /dev/ptyvf | tee $output
-
-  # Clear the process id we saved when forking instruments so the cleanup
-  # function called on exit knows it doesn't have to kill anything
-  pid_instruments=0
+  instruments "$@" 2>&1 | tee $output
 
   # Process the instruments output looking for anything that resembles a fail
   # message
@@ -71,22 +57,11 @@ get_error_status() {
   ruby -e 'exit 1 if STDIN.read =~ /Instruments Usage Error|Instruments Trace Error|^\d+-\d+-\d+ \d+:\d+:\d+ [-+]\d+ (Fail:|Error:|None: Script threw an uncaught JavaScript error)/'
 }
 
-trap cleanup_instruments EXIT INT TERM
-function cleanup_instruments() {
-  # Because we fork instruments in this script, we need to clean up if it's
-  # still running because of an error or the user pressed Ctrl-C
-  if [[ $pid_instruments -gt 0 ]]; then
-    echo "Cleaning up instruments..."
-    kill -9 $pid_instruments
-  fi
-}
-
 # Running this file with "----test" will try to parse an error out of whatever
 # is handed in to it from stdin. Use this method to double check your work if
 # you need a custom "get_error_status" function above.
 if [[ $1 == "----test" ]]; then
   get_error_status
 else
-  run_instruments $@
+  run_instruments "$@"
 fi
-
