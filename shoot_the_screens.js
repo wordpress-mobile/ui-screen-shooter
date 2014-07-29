@@ -71,7 +71,7 @@ captureLocalizedScreenshot("3-notifications");
 // load blog details
 app.tabBar().buttons()[2].tap(); sleep(1);
 // this is needed if there is more than one blog
-if ( win.tableViews()[0].visibleCells()[0].name() == 'Ultimate Cat Blog' ) {
+if ( win.tableViews()[0].visibleCells()[0].name() == 'Words, Whimsy, and the World' ) {
     win.tableViews()[0].visibleCells()[0].tap(); sleep(1);
 }
 
