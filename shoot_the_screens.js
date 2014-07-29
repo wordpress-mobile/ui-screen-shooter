@@ -58,7 +58,7 @@ app.navigationBar().tapWithOptions({tapOffset:{x:0.95, y:0.55}}); sleep(1);
 win.scrollViews()[0].tableViews()[0].cells()[0].tap();
 
 // wait for reader to load content and take screenshot
-sleep(5);
+sleep(10);
 captureLocalizedScreenshot("2-reader");
 
 // load notifications
