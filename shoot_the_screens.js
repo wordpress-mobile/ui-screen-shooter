@@ -25,7 +25,7 @@ if ( app.tabBar().checkIsValid() ) {
     app.tabBar().buttons()[2].tap(); sleep(1);
 
     // need two taps of the back button if there is only one blog added to the app
-    while ( win.tableViews()[0].visibleCells()[0].name() == 'Ultimate Cat Blog' ) {
+    while ( ! win.navigationBar().rightButton().checkIsValid() ) {
         app.navigationBar().leftButton().tap(); sleep(1);
     }
 
