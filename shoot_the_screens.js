@@ -40,9 +40,7 @@ if ( app.tabBar().checkIsValid() ) {
     }
 }
 
-// take screenshot of login
 sleep(5);
-captureLocalizedScreenshot("1-login");
 
 win.textFields()[0].tap(); sleep(1);
 type(username);
@@ -59,14 +57,14 @@ win.scrollViews()[0].tableViews()[0].cells()[0].tap();
 
 // wait for reader to load content and take screenshot
 sleep(10);
-captureLocalizedScreenshot("2-reader");
+captureLocalizedScreenshot("1-reader");
 
 // load notifications
 app.tabBar().buttons()[1].tap();
 
 // wait for notifications to load and then take screenshot
 sleep(5);
-captureLocalizedScreenshot("3-notifications");
+captureLocalizedScreenshot("2-notifications");
 
 // load blog details
 app.tabBar().buttons()[2].tap(); sleep(1);
@@ -75,15 +73,12 @@ if ( win.tableViews()[0].visibleCells()[0].name() == 'Words, Whimsy, and the Wor
     win.tableViews()[0].visibleCells()[0].tap(); sleep(1);
 }
 
-// take screenshot for blog details
-captureLocalizedScreenshot("4-blogdetails");
-
 // load comments
 win.tableViews()[0].cells()[2].tap(); sleep(1);
 
 // wait for comments to load and then take screenshot
 sleep(5);
-captureLocalizedScreenshot("5-comments");
+captureLocalizedScreenshot("3-comments");
 
 // load post editor
 app.navigationBar().leftButton().tap(); sleep(1);
@@ -91,7 +86,7 @@ win.tableViews()[0].cells()[0].tap(); sleep(1);
 win.tableViews()[0].cells()[1].tap(); sleep(1);
 
 // take screenshot for post editor
-captureLocalizedScreenshot("6-posteditor");
+captureLocalizedScreenshot("4-posteditor");
 
 app.navigationBar().leftButton().tap(); sleep(1);
 app.navigationBar().leftButton().tap(); sleep(1);
@@ -99,6 +94,6 @@ win.tableViews()[0].cells()[3].tap(); sleep(1);
 
 // wait for stats to load and then take screenshot
 sleep(5);
-captureLocalizedScreenshot("7-stats");
+captureLocalizedScreenshot("5-stats");
 
 UIALogger.logPass("screenshots");
