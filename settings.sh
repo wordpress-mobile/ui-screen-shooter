@@ -1,5 +1,5 @@
 export languages="en_US es fr it ja sv pt-BR nl de id ko ru zh-Hans th zh-Hant tr en-GB"
-export shots_per_simulator=7
+export shots_per_simulator=5
 
 export tmp_dir="/tmp"
 export screenshots_dir="./screenshots"
