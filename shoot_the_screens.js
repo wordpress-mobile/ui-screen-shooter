@@ -83,7 +83,11 @@ captureLocalizedScreenshot("3-comments");
 // load post editor
 app.navigationBar().leftButton().tap(); sleep(1);
 win.tableViews()[0].cells()[0].tap(); sleep(1);
-win.tableViews()[0].cells()[1].tap(); sleep(1);
+for (var i=0; i< win.tableViews()[0].cells().length; i++) {
+  if (win.tableViews()[0].cells()[i].name() == 'Great Perspective on Blogging') {
+    win.tableViews()[0].cells()[i].tap(); sleep(1);
+  }
+}
 
 // take screenshot for post editor
 captureLocalizedScreenshot("4-posteditor");
