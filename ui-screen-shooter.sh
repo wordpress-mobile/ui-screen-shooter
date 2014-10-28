@@ -21,7 +21,7 @@ function _xcode {
     # First build omits PRODUCT_NAME
     # Do NOT ask me why you need to build this twice for it to work
     # or how I became to know this fact
-    xcodebuild -sdk "iphonesimulator7.1" \
+    xcodebuild -sdk "iphonesimulator8.1" \
       CONFIGURATION_BUILD_DIR="$build_dir/build" \
       -workspace $xcode_project_dir/$base.xcworkspace -scheme $base -configuration AdHoc \
       DSTROOT=$build_dir \
@@ -29,7 +29,7 @@ function _xcode {
       SYMROOT=$build_dir \
       ONLY_ACTIVE_ARCH=NO \
     "$@"
-    xcodebuild -sdk "iphonesimulator7.1" \
+    xcodebuild -sdk "iphonesimulator8.1" \
       CONFIGURATION_BUILD_DIR="$build_dir/build" \
       PRODUCT_NAME=app \
       -workspace $xcode_project_dir/$base.xcworkspace -scheme $base -configuration AdHoc \
@@ -40,7 +40,7 @@ function _xcode {
     "$@"
     cp -r "$build_dir/build/app.app" "$build_dir"
   else
-    xcodebuild -sdk "iphonesimulator7.1" \
+    xcodebuild -sdk "iphonesimulator8.1" \
       CONFIGURATION_BUILD_DIR=$build_dir \
       PRODUCT_NAME=app \
       -workspace $xcode_project_dir/$base.xcworkspace -scheme $base \
@@ -63,7 +63,7 @@ function _run_automation {
           in language \"${language}\"..."
 
   dev_tools_dir=`xcode-select -print-path`
-  tracetemplate="$dev_tools_dir/../Applications/Instruments.app/Contents/PlugIns/AutomationInstrument.bundle/Contents/Resources/Automation.tracetemplate"
+  tracetemplate="$dev_tools_dir/../Applications/Instruments.app/Contents/PlugIns/AutomationInstrument.xrplugin/Contents/Resources/Automation.tracetemplate"
 
   # Check out the `unix_instruments.sh` script to see why we need this wrapper.
   DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
