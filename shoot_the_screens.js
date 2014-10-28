@@ -33,7 +33,7 @@ if ( app.tabBar().checkIsValid() ) {
 
     if (model.match(/iPhone/)) {
         win.tableViews()[0].cells()[1].tap();
-        app.actionSheet().buttons()[0].tap();
+        app.actionSheet().elements()[1].tap();
     } else {
         target.frontMostApp().mainWindow().tableViews()[1].cells()[1].tap();
         target.frontMostApp().mainWindow().popover().actionSheet().buttons()[1].tap();
