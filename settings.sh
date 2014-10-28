@@ -7,7 +7,9 @@ export xcode_project_dir="/path/to/project/folder/"
 export uiautomation_script="./shoot_the_screens.js"
 
 declare -a simulators=(
-"iPhone Retina (3.5-inch) - Simulator - iOS 7.1"
-"iPhone Retina (4-inch) - Simulator - iOS 7.1"
-"iPad Retina - Simulator - iOS 7.1"
+"iPhone 6 (8.1 Simulator)",
+"iPhone 6 Plus (8.1 Simulator)",
+"iPhone 5 (8.1 Simulator)"
+"iPhone 4s (8.1 Simulator)"
+"iPad Retina (8.1 Simulator)"
 )
