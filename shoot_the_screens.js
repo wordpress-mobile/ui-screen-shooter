@@ -36,7 +36,7 @@ if ( app.tabBar().checkIsValid() ) {
         app.actionSheet().elements()[1].tap();
     } else {
         target.frontMostApp().mainWindow().tableViews()[1].cells()[1].tap();
-        target.frontMostApp().mainWindow().popover().actionSheet().buttons()[1].tap();
+        target.frontMostApp().mainWindow().popover().actionSheet().elements()[1].tap();
     }
 }
 
